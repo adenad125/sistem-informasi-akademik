@@ -27,9 +27,13 @@ class Siswa extends Model
     public function sikap($id)
     {
         $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+        if (!$guru) {
+            return null;
+        }
         $nilai = Sikap::where('siswa_id', $id)->where('guru_id', $guru->id)->first();
-        return $nilai;
+        return $nilai ?: null; // Mengembalikan null jika $nilai tidak ditemukan
     }
+    
 
     public function nilai($id)
     {

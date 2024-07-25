@@ -72,7 +72,7 @@
                         <h4 class="mb-3">A. Sikap</h4>
                         @if ($Spai && $Sppkn)
                             @php
-                                $sikap = ((($Spai->sikap_1 + $Spai->sikap_2 + $Spai->sikap_3) / 3) + (($Sppkn->sikap_1 + $Sppkn->sikap_2 + $Sppkn->sikap_3) / 3)) / 2;
+                                $sikap = ((optional($Spai)->sikap_1 + optional($Spai)->sikap_2 + optional($Spai)->sikap_3) / 3 + (optional($Sppkn)->sikap_1 + optional($Sppkn)->sikap_2 + optional($Sppkn)->sikap_3) / 3) / 2;
                                 $sikap = (int) $sikap;
                             @endphp
                             @if ($sikap == 4)
@@ -129,18 +129,19 @@
                             </thead>
                             <tbody>
                                 @foreach ($mapel as $val => $data)
+                                    @php
+                                        $data = $data[0];
+                                    @endphp
                                     <tr>
-                                        <?php $data = $data[0]; ?>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->mapel->nama_mapel }}</td>
-                                        {{-- <td class="ctr">{{ $data->kkm($data->nilai($val)['guru_id']) }}</td> --}}
                                         <td class="ctr">{{ $data->kkm($data->guru_id) }}</td>
-                                        <td class="ctr">{{ $data->nilai($val)['p_nilai'] }}</td>
-                                        <td class="ctr">{{ $data->nilai($val)['p_predikat'] }}</td>
-                                        <td class="ctr">{{ $data->nilai($val)['p_deskripsi'] }}</td>
-                                        <td class="ctr">{{ $data->nilai($val)['k_nilai'] }}</td>
-                                        <td class="ctr">{{ $data->nilai($val)['k_predikat'] }}</td>
-                                        <td class="ctr">{{ $data->nilai($val)['k_deskripsi'] }}</td>
+                                        <td class="ctr">{{ optional($data->nilai($val))['p_nilai'] }}</td>
+                                        <td class="ctr">{{ optional($data->nilai($val))['p_predikat'] }}</td>
+                                        <td class="ctr">{{ optional($data->nilai($val))['p_deskripsi'] }}</td>
+                                        <td class="ctr">{{ optional($data->nilai($val))['k_nilai'] }}</td>
+                                        <td class="ctr">{{ optional($data->nilai($val))['k_predikat'] }}</td>
+                                        <td class="ctr">{{ optional($data->nilai($val))['k_deskripsi'] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

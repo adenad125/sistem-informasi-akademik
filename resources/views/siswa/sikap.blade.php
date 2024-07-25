@@ -82,12 +82,15 @@
                     </thead>
                     <tbody>
                         @foreach ($mapel as $data)
+                            @php
+                                $sikap = $data->sikap($data->id);
+                            @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->nama_mapel }}</td>
-                                <td class="ctr">{{ $data->sikap($data->id)['sikap_1'] }}</td>
-                                <td class="ctr">{{ $data->sikap($data->id)['sikap_2'] }}</td>
-                                <td class="ctr">{{ $data->sikap($data->id)['sikap_3'] }}</td>
+                                <td class="ctr">{{ optional($sikap)['sikap_1'] }}</td>
+                                <td class="ctr">{{ optional($sikap)['sikap_2'] }}</td>
+                                <td class="ctr">{{ optional($sikap)['sikap_3'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>
